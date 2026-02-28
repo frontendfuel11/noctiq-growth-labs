@@ -1,7 +1,11 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import ProjectModal from "./ProjectModal";
 
 export default function FinalCTA() {
+  const [modalOpen, setModalOpen] = useState(false);
+
   return (
     <section className="section-spacing relative overflow-hidden">
       <div className="hero-glow absolute inset-0 pointer-events-none rotate-180" />
@@ -19,11 +23,12 @@ export default function FinalCTA() {
           <p className="text-muted-foreground mb-10 text-lg">
             Ready to transform your digital presence? Let's start a conversation.
           </p>
-          <Button variant="hero" size="lg">
+          <Button variant="hero" size="lg" onClick={() => setModalOpen(true)}>
             Schedule a Consultation
           </Button>
         </motion.div>
       </div>
+      <ProjectModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </section>
   );
 }

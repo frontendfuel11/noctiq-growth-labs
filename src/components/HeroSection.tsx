@@ -1,17 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
+import ProjectModal from "./ProjectModal";
 
 const FloatingSphere = lazy(() => import("./FloatingSphere"));
 
 export default function HeroSection() {
+  const [modalOpen, setModalOpen] = useState(false);
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
-      {/* Background glow */}
       <div className="hero-glow absolute inset-0 pointer-events-none" />
-      
+
       <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
-        {/* Left: Text */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -37,16 +38,15 @@ export default function HeroSection() {
           </p>
 
           <div className="flex flex-wrap gap-4">
-            <Button variant="hero" size="lg">
+            <Button variant="hero" size="lg" onClick={() => setModalOpen(true)}>
               Start a Project
             </Button>
-            <Button variant="heroOutline" size="lg">
+            <Button variant="heroOutline" size="lg" onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}>
               View Case Studies
             </Button>
           </div>
         </motion.div>
 
-        {/* Right: 3D Sphere */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -58,6 +58,8 @@ export default function HeroSection() {
           </Suspense>
         </motion.div>
       </div>
+
+      <ProjectModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </section>
   );
 }

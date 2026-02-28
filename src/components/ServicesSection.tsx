@@ -1,38 +1,7 @@
 import { motion } from "framer-motion";
-import { Palette, Globe, Smartphone, Code2, Sparkles, TrendingUp } from "lucide-react";
-
-const services = [
-  {
-    icon: Palette,
-    title: "UI/UX Design",
-    description: "Human-centered product design backed by research and strategy.",
-  },
-  {
-    icon: Globe,
-    title: "Web Development",
-    description: "Scalable, high-performance web platforms engineered for growth.",
-  },
-  {
-    icon: Smartphone,
-    title: "App Development",
-    description: "Cross-platform applications with seamless user experiences.",
-  },
-  {
-    icon: Code2,
-    title: "WordPress Engineering",
-    description: "Custom-built WordPress ecosystems optimized for performance.",
-  },
-  {
-    icon: Sparkles,
-    title: "Branding Systems",
-    description: "Identity systems that create lasting impressions.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Conversion Optimization",
-    description: "Data-driven improvements that increase revenue.",
-  },
-];
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+import { servicesData } from "@/data/services";
 
 export default function ServicesSection() {
   return (
@@ -51,20 +20,27 @@ export default function ServicesSection() {
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, i) => (
+          {servicesData.map((service, i) => (
             <motion.div
-              key={service.title}
+              key={service.slug}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="glass-card gradient-border p-8 group hover:bg-card/80 transition-all duration-300"
             >
-              <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
-                <service.icon className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="font-display font-semibold text-lg text-foreground mb-3">{service.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">{service.description}</p>
+              <Link
+                to={`/services/${service.slug}`}
+                className="glass-card gradient-border p-8 group hover:bg-card/80 transition-all duration-300 block h-full"
+              >
+                <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
+                  <service.icon className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="font-display font-semibold text-lg text-foreground mb-3">{service.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-4">{service.description}</p>
+                <span className="inline-flex items-center gap-1.5 text-primary text-sm font-medium group-hover:gap-2.5 transition-all">
+                  Learn more <ArrowRight className="h-4 w-4" />
+                </span>
+              </Link>
             </motion.div>
           ))}
         </div>
